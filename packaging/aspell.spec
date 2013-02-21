@@ -15,7 +15,7 @@ Release:        0
 License:        LGPL-2.1+
 Summary:        A Free and Open Source Spell Checker
 Url:            http://aspell.net/
-Group:          Productivity/Text/Spell
+Group:          System/Libraries
 Source0:        ftp://ftp.gnu.org/gnu/aspell/%{name}-%{version}.tar.gz
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
@@ -36,7 +36,7 @@ dictionaries when more than one Aspell process is open at once.
 
 %package devel
 Summary:        Include Files and Libraries Mandatory for Development with aspell
-Group:          Development/Libraries/C and C++
+Group:          Development/Libraries
 Requires:       glibc-devel
 Requires:       libaspell = %{version}
 Requires:       libpspell = %{version}
@@ -47,7 +47,7 @@ to develop applications that require aspell.
 
 %package ispell
 Summary:        GNU Aspell - Ispell compatibility
-Group:          Productivity/Text/Spell
+Group:          System/Tools
 Requires:       %{name} = %{version}
 
 %description ispell
@@ -59,7 +59,7 @@ programs that expect the "ispell" command will work correctly.
 
 %package spell
 Summary:        GNU Aspell - Spell compatibility
-Group:          Productivity/Text/Spell
+Group:          System/Tools
 Requires:       %{name} = %{version}
 
 %description spell
