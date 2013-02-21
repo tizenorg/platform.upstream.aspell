@@ -294,7 +294,7 @@ static inline void set_sl(WordEntry & res, Str w)
 
 static void soundslike_next(WordEntry * w)
 {
-  const Str * & i   = (const Str * &)(w->intr[0]);
+  const Str * i   = (const Str * )(w->intr[0]);
   const Str *   end = (const Str *  )(w->intr[1]);
   set_word(*w, *i);
   ++i;
@@ -721,7 +721,7 @@ WritableReplDict::Enum * WritableReplDict::detailed_elements() const {
 
 static void repl_next(WordEntry * w)
 {
-  const Str * & i   = (const Str * &)(w->intr[0]);
+  const Str * i   = (const Str * )(w->intr[0]);
   const Str *   end = (const Str *  )(w->intr[1]);
   set_word(*w, *i);
   ++i;
