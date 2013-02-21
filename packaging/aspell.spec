@@ -119,6 +119,10 @@ ln -s %{_libdir}/aspell-0.60/spell %{buildroot}%{_bindir}
 
 %postun -n libaspell -p /sbin/ldconfig
 
+%post -n libpspell -p /sbin/ldconfig
+
+%postun -n libpspell -p /sbin/ldconfig
+
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
