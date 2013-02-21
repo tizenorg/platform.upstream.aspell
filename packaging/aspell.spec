@@ -1,4 +1,13 @@
+# Copyright (c) 2012 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
+# All modifications and additions to the file contributed by third parties
+# remain the property of their copyright owners, unless otherwise agreed
+# upon. The license for this file, and modifications and additions to the
+# file, is the same license as for the pristine package itself (unless the
+# license for the pristine package is not an Open Source License, in which
+# case the license is the MIT License). An "Open Source License" is a
+# license that conforms to the Open Source Definition (Version 1.9)
+# published by the Open Source Initiative.
 
 Name:           aspell
 Version:        0.60.6.1
@@ -8,22 +17,11 @@ Summary:        A Free and Open Source Spell Checker
 Url:            http://aspell.net/
 Group:          Productivity/Text/Spell
 Source0:        ftp://ftp.gnu.org/gnu/aspell/%{name}-%{version}.tar.gz
-Patch0:         aspell-strict-aliasing.patch
-Patch1:         aspell-quotes.patch
-Patch2:         aspell-epmty_file.patch
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  gettext-tools
 BuildRequires:  libtool
 BuildRequires:  ncurses-devel
-Recommends:     aspell-en
-Suggests:       aspell-ispell
-Suggests:       aspell-spell
-Provides:       pspell = %{version}
-Obsoletes:      pspell < %{version}
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Requires(post): info
-Requires(preun): info
 
 %description
 GNU Aspell is a spell checker designed to eventually replace Ispell. It
@@ -41,11 +39,7 @@ Summary:        Include Files and Libraries Mandatory for Development with aspel
 Group:          Development/Libraries/C and C++
 Requires:       glibc-devel
 Requires:       libaspell = %{version}
-Requires:       libpspell15 = %{version}
-Provides:       pspell-devel = %{version}
-Obsoletes:      pspell-devel < %{version}
-Requires(post): info
-Requires(preun): info
+Requires:       libpspell = %{version}
 
 %description devel
 This package contains all necessary include files and libraries needed
@@ -55,7 +49,6 @@ to develop applications that require aspell.
 Summary:        GNU Aspell - Ispell compatibility
 Group:          Productivity/Text/Spell
 Requires:       %{name} = %{version}
-Conflicts:      ispell
 
 %description ispell
 GNU Aspell is a spell checker designed to eventually replace Ispell. It
@@ -68,7 +61,6 @@ programs that expect the "ispell" command will work correctly.
 Summary:        GNU Aspell - Spell compatibility
 Group:          Productivity/Text/Spell
 Requires:       %{name} = %{version}
-Provides:       spell
 
 %description spell
 GNU Aspell is a spell checker designed to eventually replace Ispell. It
@@ -87,11 +79,11 @@ can be used as a library or as an independent spell checker.
 
 This package contains the aspell library.
 
-%package -n libpspell15
+%package -n libpspell
 Summary:        GNU Aspell - Pspell Compatibility Library
 Group:          System/Libraries
 
-%description -n libpspell15
+%description -n libpspell
 GNU Aspell is a spell checker designed to eventually replace Ispell. It
 can be used as a library or as an independent spell checker.
 
@@ -99,9 +91,6 @@ This package contains the pspell compatibility library.
 
 %prep
 %setup -q
-%patch0
-%patch1
-%patch2
 
 %build
 autoreconf -fiv
@@ -119,22 +108,12 @@ make %{?_smp_mflags}
 # Links for compatibility reasons (ispell and spell)
 ln -s %{_libdir}/aspell-0.60/ispell %{buildroot}%{_bindir}
 ln -s %{_libdir}/aspell-0.60/spell %{buildroot}%{_bindir}
-find %{buildroot} -name "*.la" -type f -print -delete
 %fdupes -s %{buildroot}
 
 %find_lang %{name}
 
-%post
-%install_info --info-dir=%{_infodir} %{_infodir}/%{name}.info%{ext_info}
 
-%preun
-%install_info_delete --info-dir=%{_infodir} %{_infodir}/%{name}.info%{ext_info}
-
-%post devel
-%install_info --info-dir=%{_infodir} %{_infodir}/%{name}-dev.info%{ext_info}
-
-%preun devel
-%install_info_delete --info-dir=%{_infodir} %{_infodir}/%{name}-dev.info%{ext_info}
+%docs_package
 
 %post -n libaspell -p /sbin/ldconfig
 
@@ -143,16 +122,12 @@ find %{buildroot} -name "*.la" -type f -print -delete
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc COPYING README TODO
-%doc manual/aspell.html/
+%license COPYING 
 %{_bindir}/aspell
 %{_bindir}/aspell-import
 %{_bindir}/pre*
 %{_bindir}/run-with-aspell
 %{_bindir}/word-list-compress
-%doc %{_infodir}/%{name}.info%{ext_info}
-%doc %{_mandir}/man1/*.1%{ext_man}
-%exclude %{_mandir}/man1/pspell-config.1%{ext_man}
 
 %files devel
 %defattr(-,root,root,-)
@@ -178,6 +153,6 @@ find %{buildroot} -name "*.la" -type f -print -delete
 %{_libdir}/aspell-0.60/
 %{_libdir}/libaspell.so.15*
 
-%files -n libpspell15
+%files -n libpspell
 %defattr(-,root,root,-)
 %{_libdir}/libpspell.so.15*
