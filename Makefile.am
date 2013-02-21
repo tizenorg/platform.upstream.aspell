@@ -29,8 +29,10 @@ lib_LTLIBRARIES = libaspell.la
 
 if PSPELL_COMPATIBILITY
 lib_LTLIBRARIES += libpspell.la
+libpspell_la_CXXFLAGS = -fvisibility-inlines-hidden
 endif
 
+libaspell_la_CXXFLAGS = -fvisibility-inlines-hidden
 libaspell_la_SOURCES =\
   common/cache.cpp\
   common/string.cpp\
@@ -194,7 +196,7 @@ libaspell_la_SOURCES +=\
 else # not COMPILE_IN_FILTERS
 
 dynamic_optfiles += ${optfiles}
-filter_ldflags = -module -avoid-version
+filter_ldflags = -avoid-version -module -shared -export-dynamic
 
 ### Add name of filter library containing your filter. Name always
 ### must look like lib<filtername>-filter.la see development manual

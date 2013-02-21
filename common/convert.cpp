@@ -813,6 +813,7 @@ namespace acommon {
   {
     ToUniLookup lookup;
     void decode(const char * in, int size, FilterCharVector & out) const {
+      if (size == 0) return; // if size == 0 then while loop cause SIGSEGV
       const char * stop = in + size; // this is OK even if size == -1
       while (*in && in != stop) {
         out.append(from_utf8(in, stop));
