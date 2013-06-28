@@ -17,6 +17,7 @@ Summary:        A Free and Open Source Spell Checker
 Url:            http://aspell.net/
 Group:          System/Libraries
 Source0:        ftp://ftp.gnu.org/gnu/aspell/%{name}-%{version}.tar.gz
+Source1001: 	aspell.manifest
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  gettext-tools
@@ -91,6 +92,7 @@ This package contains the pspell compatibility library.
 
 %prep
 %setup -q
+cp %{SOURCE1001} .
 
 %build
 autoreconf -fiv
@@ -125,6 +127,7 @@ ln -s %{_libdir}/aspell-0.60/spell %{buildroot}%{_bindir}
 
 
 %files -f %{name}.lang
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %license COPYING 
 %{_bindir}/aspell
@@ -134,6 +137,7 @@ ln -s %{_libdir}/aspell-0.60/spell %{buildroot}%{_bindir}
 %{_bindir}/word-list-compress
 
 %files devel
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %doc manual/aspell-dev.html/
 %{_bindir}/pspell-config
@@ -145,18 +149,22 @@ ln -s %{_libdir}/aspell-0.60/spell %{buildroot}%{_bindir}
 %doc %{_mandir}/man1/pspell-config.1%{ext_man}
 
 %files ispell
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %{_bindir}/ispell
 
 %files spell
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %{_bindir}/spell
 
 %files -n libaspell
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %{_libdir}/aspell-0.60/
 %{_libdir}/libaspell.so.15*
 
 %files -n libpspell
+%manifest %{name}.manifest
 %defattr(-,root,root,-)
 %{_libdir}/libpspell.so.15*
