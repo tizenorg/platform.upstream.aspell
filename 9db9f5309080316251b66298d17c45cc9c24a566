@@ -1,0 +1,8 @@
+Change-Id: I9db9f5309080316251b66298d17c45cc9c24a566
+Code-Review+2: Ryan Ware <ware@linux.intel.com>
+Verified+1: Ryan Ware <ware@linux.intel.com>
+Submitted-by: Ryan Ware <ware@linux.intel.com>
+Submitted-at: Mon, 08 Jul 2013 10:06:11 -0700
+Reviewed-on: https://review.tizen.org/gerrit/4607
+Project: platform/upstream/aspell
+Branch: refs/heads/tizen
